@@ -144,8 +144,7 @@ export const testimonials: { name: string; meta: string; rating?: number; quote:
 
 // Headline numbers for the testimonials strip.
 export const learnerStats = [
-  { value: '500+', label: 'Happy Learners' },
-  { value: '100+', label: 'Corporate Clients' },
+  { value: '900+', label: 'Happy Learners' },
   { value: '90%', label: 'Career Advancement' },
   { value: '4.8/5', label: 'Average Student Rating' },
 ];

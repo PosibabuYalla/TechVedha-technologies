@@ -139,7 +139,7 @@ export default function WhyTechVedha() {
           initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }}
           className="why-stats"
-          style={{ margin: 'clamp(18px, 3vh, 30px) 0 0 140px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', background: 'rgba(15,23,36,0.85)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 10, padding: 'clamp(16px, 2.6vh, 26px) 12px', backdropFilter: 'blur(6px)' }}
+          style={{ margin: 'clamp(18px, 3vh, 30px) 0 0 140px', maxWidth: 760, display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', background: 'rgba(15,23,36,0.85)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 10, padding: 'clamp(16px, 2.6vh, 26px) 12px', backdropFilter: 'blur(6px)' }}
         >
           {stats.map(({ Icon, value, label }, i) => (
             <div key={label} className="why-stat" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20, borderLeft: i === 0 ? 'none' : '1px solid rgba(255,255,255,0.14)' }}>
@@ -179,8 +179,6 @@ export default function WhyTechVedha() {
           .why-inner { padding: 0 32px !important; }
           .why-grid-wrap { grid-template-columns: 1fr !important; gap: 40px !important; }
           .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-          .why-stats { grid-template-columns: repeat(2, 1fr) !important; row-gap: 24px; }
-          .why-stat:nth-child(3) { border-left: none !important; }
         }
         @media (max-width: 600px) {
           .why-inner { padding: 0 20px !important; }

@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
-import { Star, Quote, Users, GraduationCap, BriefcaseBusiness, ChartNoAxesCombined } from 'lucide-react';
+import { Star, Quote, Users, GraduationCap, ChartNoAxesCombined } from 'lucide-react';
 import { testimonials, learnerStats } from '../data/testimonials';
 
 const RED = '#E31B23';
 const RED_TEXT = '#FF3B42';
-const STAT_ICONS = [GraduationCap, BriefcaseBusiness, ChartNoAxesCombined, Star];
+const STAT_ICONS = [GraduationCap, ChartNoAxesCombined, Star];
 
 const people: { src: string; pos: React.CSSProperties; mask: string }[] = [
   { src: 'photo-1507003211169-0a1dd7228f2d', pos: { left: 0, bottom: 0, width: '15%', height: '55%' }, mask: 'radial-gradient(ellipse 70% 60% at 30% 60%, #000 35%, transparent 100%)' },
@@ -208,8 +208,8 @@ export default function Testimonials() {
 
         /* Stats */
         .tm-strip {
-          display: grid; grid-template-columns: repeat(4, 1fr);
-          margin: clamp(20px, 3.4vh, 36px) auto 0; width: calc(100% - 96px); max-width: 1180px;
+          display: grid; grid-template-columns: repeat(3, 1fr);
+          margin: clamp(20px, 3.4vh, 36px) auto 0; width: calc(100% - 96px); max-width: 960px;
           background: linear-gradient(160deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%);
           border: 1px solid rgba(255,255,255,0.1); border-radius: 16px;
           padding: clamp(14px, 2.4vh, 22px) 12px; backdrop-filter: blur(10px);
@@ -224,7 +224,7 @@ export default function Testimonials() {
         @media (max-width: 1700px) { .tm-float { display: none; } }
         @media (max-width: 1100px) { .tm-person { display: none; } }
         @media (max-width: 1000px) {
-          .tm-strip { grid-template-columns: repeat(2, 1fr); row-gap: 18px; width: calc(100% - 56px); }
+          .tm-strip { width: calc(100% - 56px); }
           .tm-strip-item { border-left: none !important; justify-content: flex-start; }
         }
         @media (max-width: 640px) {

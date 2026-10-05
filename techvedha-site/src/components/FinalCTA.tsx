@@ -20,8 +20,7 @@ const highlights = [
 
 const stats = [
   { Icon: GraduationCap, value: learnerStats[0].value, label: 'Learners Trained' },
-  { Icon: Building2, value: learnerStats[1].value, label: 'Corporate Clients' },
-  { Icon: ChartNoAxesCombined, value: learnerStats[2].value, label: 'Career Advancement' },
+  { Icon: ChartNoAxesCombined, value: learnerStats[1].value, label: 'Career Advancement' },
 ];
 
 const benefits = [
@@ -74,10 +73,19 @@ export default function FinalCTA() {
         }),
       });
       const data = await res.json().catch(() => ({}));
-      if (!res.ok || String(data.success) !== 'true') throw new Error(data.message || 'Request failed');
+      if (!res.ok || String(data.success) !== 'true') {
+        throw new Error(data.message || `Server responded with status ${res.status}`);
+      }
       setSubmitted(true);
-    } catch {
-      setError(`Sorry, your request couldn't be sent. Please try again or email us at ${CONTACT_EMAIL}.`);
+    } catch (err) {
+      const reason = err instanceof Error ? err.message : String(err);
+      console.error('Contact form submission failed:', reason);
+      // Until the inbox owner clicks FormSubmit's one-time activation link, every submission is held.
+      if (/activat/i.test(reason)) {
+        setError(`This form is awaiting activation. Please check ${CONTACT_EMAIL} (including spam) for the FormSubmit "Activate Form" email and click the link, then submit again.`);
+      } else {
+        setError(`Sorry, your request couldn't be sent (${reason}). Please try again or email us at ${CONTACT_EMAIL}.`);
+      }
     } finally {
       setSending(false);
     }
@@ -258,7 +266,7 @@ export default function FinalCTA() {
 
       <style>{`
         .cta-stats {
-          display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: clamp(18px, 3.4vh, 36px); max-width: 560px;
+          display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: clamp(18px, 3.4vh, 36px); max-width: 400px;
           background: rgba(15,23,36,0.85); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px;
           padding: clamp(12px, 2vh, 18px) 4px; box-shadow: 0 14px 30px rgba(0,0,0,0.3);
         }

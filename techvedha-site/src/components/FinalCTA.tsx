@@ -36,7 +36,7 @@ const fields = [
   { key: 'phone',   label: 'Phone Number',  type: 'tel',   required: false, placeholder: 'Enter your phone number',  Icon: Phone },
 ] as const;
 
-const CONTACT_EMAIL = 'info@tech-vedha.co.in';
+const CONTACT_EMAIL = 'sunil.b@tech-vedha.co.in';
 const SERVICE_LABELS: Record<string, string> = {
   consulting: 'Technology Consulting',
   training: 'Corporate Training',

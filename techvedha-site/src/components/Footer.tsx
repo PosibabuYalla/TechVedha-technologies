@@ -86,8 +86,8 @@ export default function Footer() {
               <div style={{ width: 28, height: 28, background: '#FCE7E8', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                 <Mail size={13} color="#E31B23" />
               </div>
-              <a href="mailto:info@tech-vedha.co.in" style={{ fontFamily: 'Inter', fontSize: 13, color: '#666', textDecoration: 'none' }}>
-                info@tech-vedha.co.in
+              <a href="mailto:sunil.b@tech-vedha.co.in" style={{ fontFamily: 'Inter', fontSize: 13, color: '#666', textDecoration: 'none' }}>
+                sunil.b@tech-vedha.co.in
               </a>
             </div>
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 28 }}>

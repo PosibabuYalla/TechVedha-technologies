@@ -143,8 +143,13 @@ export const testimonials: { name: string; meta: string; rating?: number; quote:
 ];
 
 // Headline numbers for the testimonials strip.
+// Overall star rating on the Tech Vedha Google Business Profile.
+export const GOOGLE_RATING = 4.8;
+// Link to the Google reviews page. Leave empty to hide the "See all reviews" link.
+export const GOOGLE_REVIEWS_URL = '';
+
 export const learnerStats = [
   { value: '900+', label: 'Happy Learners' },
   { value: '90%', label: 'Career Advancement' },
-  { value: '4.8/5', label: 'Average Student Rating' },
+  { value: `${GOOGLE_RATING}/5`, label: 'Google Rating' },
 ];

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { Star, Quote, Users, GraduationCap, ChartNoAxesCombined } from 'lucide-react';
-import { testimonials, learnerStats } from '../data/testimonials';
+import { Star, Users, GraduationCap, ChartNoAxesCombined, ExternalLink } from 'lucide-react';
+import { testimonials, learnerStats, GOOGLE_RATING, GOOGLE_REVIEWS_URL } from '../data/testimonials';
 
 const RED = '#E31B23';
 const RED_TEXT = '#FF3B42';
@@ -17,27 +17,56 @@ const rows = [testimonials.filter((_, i) => i % 2 === 0), testimonials.filter((_
 const initials = (name: string) =>
   name.replace(/[^A-Za-z\s-]/g, '').split(/[\s-]+/).filter(Boolean).map(w => w[0]).join('').slice(0, 2).toUpperCase();
 
+// Google "G" mark
+function GoogleLogo({ size = 20 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden="true" style={{ flexShrink: 0, display: 'block' }}>
+      <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z" />
+      <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z" />
+      <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z" />
+      <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C36.9 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z" />
+    </svg>
+  );
+}
+
+// Five stars filled to `value` (supports fractions, e.g. 4.8)
+function Stars({ value, size = 15 }: { value: number; size?: number }) {
+  return (
+    <span style={{ display: 'inline-flex', gap: 2 }} role="img" aria-label={`${value} out of 5 stars`}>
+      {Array.from({ length: 5 }).map((_, s) => {
+        const fill = Math.max(0, Math.min(1, value - s));
+        return (
+          <span key={s} style={{ position: 'relative', width: size, height: size, display: 'inline-block' }}>
+            <Star size={size} color="#FBBC04" fill="none" strokeWidth={1.5} style={{ position: 'absolute', inset: 0 }} />
+            <span style={{ position: 'absolute', top: 0, left: 0, height: size, width: `${fill * 100}%`, overflow: 'hidden' }}>
+              <Star size={size} color="#FBBC04" fill="#FBBC04" strokeWidth={1.5} />
+            </span>
+          </span>
+        );
+      })}
+    </span>
+  );
+}
+
+const AVATAR_COLORS = ['#1A73E8', '#E37400', '#188038', '#D93025', '#9334E6', '#12B5CB', '#C5221F', '#1E8E3E'];
+const avatarColor = (name: string) => AVATAR_COLORS[[...name].reduce((h, c) => h + c.charCodeAt(0), 0) % AVATAR_COLORS.length];
+
 function ReviewCard({ t, hidden }: { t: (typeof testimonials)[number]; hidden?: boolean }) {
   return (
     <figure className="tm-card" aria-hidden={hidden || undefined}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <span className="tm-quote"><Quote size={18} color="#fff" fill="#fff" strokeWidth={0} /></span>
-        {t.rating !== undefined && (
-          <span style={{ display: 'flex', gap: 3 }} aria-label={`${t.rating} out of 5 stars`}>
-            {Array.from({ length: 5 }).map((_, s) => (
-              <Star key={s} size={15} color="#FFB800" fill={s < (t.rating ?? 0) ? '#FFB800' : 'none'} strokeWidth={1.5} />
-            ))}
-          </span>
-        )}
-      </div>
-      <blockquote className="tm-text" title={t.quote}>{t.quote}</blockquote>
-      <figcaption style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 'auto', paddingTop: 14, borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-        <span className="tm-avatar">{initials(t.name)}</span>
-        <span style={{ minWidth: 0 }}>
+      <figcaption style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <span className="tm-avatar" style={{ background: avatarColor(t.name) }}>{initials(t.name)}</span>
+        <span style={{ minWidth: 0, flex: 1 }}>
           <span style={{ display: 'block', fontFamily: 'Inter', fontSize: 14.5, fontWeight: 600, color: '#fff', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{t.name}</span>
-          <span style={{ display: 'block', fontFamily: 'Inter', fontSize: 12.5, color: 'rgba(255,255,255,0.55)', marginTop: 2 }}>{t.meta}</span>
+          <span style={{ display: 'block', fontFamily: 'Inter', fontSize: 12.5, color: 'rgba(255,255,255,0.55)', marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{t.meta}</span>
         </span>
+        <span title="Posted on Google"><GoogleLogo size={22} /></span>
       </figcaption>
+      {t.rating !== undefined && <div style={{ marginTop: 12, lineHeight: 0 }}><Stars value={t.rating} /></div>}
+      <blockquote className="tm-text" title={t.quote}>{t.quote}</blockquote>
+      <span style={{ marginTop: 'auto', paddingTop: 10, fontFamily: 'Inter', fontSize: 11.5, color: 'rgba(255,255,255,0.45)' }}>
+        Posted on <span style={{ fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>Google</span>
+      </span>
     </figure>
   );
 }
@@ -106,6 +135,22 @@ export default function Testimonials() {
           <p style={{ fontFamily: 'Inter', fontSize: 'clamp(15px, 1.2vw, 18px)', lineHeight: 1.5, color: 'rgba(255,255,255,0.75)', margin: '12px auto 0', maxWidth: 720 }}>
             Real stories from our students who have built skills, confidence and successful careers with Tech Vedha Technologies.
           </p>
+
+          <div className="tm-google">
+            <GoogleLogo size={34} />
+            <span style={{ textAlign: 'left' }}>
+              <span style={{ display: 'block', fontFamily: 'Inter', fontSize: 13, fontWeight: 600, color: '#5F6368', letterSpacing: '0.02em' }}>Google Reviews</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 3 }}>
+                <span style={{ fontFamily: 'Inter', fontSize: 26, fontWeight: 700, color: '#202124', lineHeight: 1 }}>{GOOGLE_RATING.toFixed(1)}</span>
+                <Stars value={GOOGLE_RATING} size={18} />
+              </span>
+            </span>
+            {GOOGLE_REVIEWS_URL && (
+              <a href={GOOGLE_REVIEWS_URL} target="_blank" rel="noopener noreferrer" className="tm-google-link">
+                See all reviews <ExternalLink size={14} />
+              </a>
+            )}
+          </div>
         </motion.div>
 
         {/* Marquee rows */}
@@ -130,7 +175,9 @@ export default function Testimonials() {
             const Icon = STAT_ICONS[i];
             return (
               <div key={label} className="tm-strip-item" style={{ borderLeft: i === 0 ? 'none' : '1px solid rgba(255,255,255,0.1)' }}>
-                <span className="tm-strip-icon"><Icon size={24} color={RED_TEXT} strokeWidth={1.7} /></span>
+                <span className="tm-strip-icon" style={Icon === Star ? { background: '#fff', borderColor: '#fff' } : undefined}>
+                  {Icon === Star ? <GoogleLogo size={24} /> : <Icon size={24} color={RED_TEXT} strokeWidth={1.7} />}
+                </span>
                 <span>
                   <span style={{ display: 'block', fontFamily: 'Inter', fontSize: 'clamp(22px, 1.9vw, 30px)', fontWeight: 700, lineHeight: 1.1, color: '#fff' }}>{value}</span>
                   <span style={{ display: 'block', fontFamily: 'Inter', fontSize: 14, color: 'rgba(255,255,255,0.65)', marginTop: 2, whiteSpace: 'nowrap' }}>{label}</span>
@@ -166,6 +213,18 @@ export default function Testimonials() {
           box-shadow: 0 14px 30px rgba(0,0,0,0.35); backdrop-filter: blur(8px);
         }
 
+        .tm-google {
+          display: inline-flex; align-items: center; gap: 14px; margin-top: clamp(16px, 2.6vh, 24px);
+          padding: 12px 22px 12px 16px; border-radius: 14px; background: #fff;
+          box-shadow: 0 14px 34px rgba(0,0,0,0.35);
+        }
+        .tm-google-link {
+          display: inline-flex; align-items: center; gap: 6px; margin-left: 6px; padding-left: 16px;
+          border-left: 1px solid #E3E6EA; font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 600;
+          color: #1A73E8; text-decoration: none;
+        }
+        .tm-google-link:hover { text-decoration: underline; }
+
         /* Marquee */
         .tm-marquee {
           display: flex; flex-direction: column; gap: clamp(14px, 2vh, 20px);
@@ -190,10 +249,6 @@ export default function Testimonials() {
           transition: border-color 0.3s, background 0.3s, transform 0.3s;
         }
         .tm-card:hover { border-color: rgba(255,59,66,0.55); background: linear-gradient(160deg, rgba(255,255,255,0.1) 0%, rgba(227,27,35,0.06) 100%); transform: translateY(-4px); }
-        .tm-quote {
-          width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
-          background: linear-gradient(135deg, #FF5A5F 0%, ${RED} 100%); box-shadow: 0 6px 16px rgba(227,27,35,0.4);
-        }
         .tm-text {
           font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.55; color: rgba(255,255,255,0.86);
           margin: 12px 0 0; white-space: pre-line;

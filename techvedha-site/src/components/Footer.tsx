@@ -133,6 +133,14 @@ export default function Footer() {
             ))}
           </div>
         </div>
+
+        {/* Credit */}
+        <p style={{ fontFamily: 'Inter', fontSize: 13, color: '#999', textAlign: 'center', marginTop: 18 }}>
+          Designed &amp; Developed by{' '}
+          <a href="https://www.sabariyatech.in" target="_blank" rel="noopener noreferrer" style={{ color: '#E31B23', fontWeight: 600, textDecoration: 'none' }}>
+            SabariyaTech
+          </a>
+        </p>
       </div>
 
       <style>{`

@@ -37,13 +37,50 @@ const fields = [
   { key: 'phone',   label: 'Phone Number',  type: 'tel',   required: false, placeholder: 'Enter your phone number',  Icon: Phone },
 ] as const;
 
+const CONTACT_EMAIL = 'info@tech-vedha.co.in';
+const SERVICE_LABELS: Record<string, string> = {
+  consulting: 'Technology Consulting',
+  training: 'Corporate Training',
+  capability: 'Capability Building',
+  other: 'Other',
+};
+
 export default function FinalCTA() {
   const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', service: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Submissions are emailed to the inbox below via FormSubmit (formsubmit.co).
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+    setError('');
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          Name: form.name,
+          Company: form.company || '-',
+          Email: form.email,
+          Phone: form.phone || '-',
+          'Service Required': SERVICE_LABELS[form.service] ?? '-',
+          Message: form.message || '-',
+          _replyto: form.email,
+          _subject: `New consultation request from ${form.name}`,
+          _template: 'table',
+          _captcha: 'false',
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || String(data.success) !== 'true') throw new Error(data.message || 'Request failed');
+      setSubmitted(true);
+    } catch {
+      setError(`Sorry, your request couldn't be sent. Please try again or email us at ${CONTACT_EMAIL}.`);
+    } finally {
+      setSending(false);
+    }
   };
 
   const label = (text: string, required = false) => (
@@ -188,8 +225,11 @@ export default function FinalCTA() {
                 </span>
               </label>
 
-              <button type="submit" className="btn-primary" style={{ gridColumn: '1 / -1', justifyContent: 'center', borderRadius: 8, padding: 'clamp(14px, 2vh, 18px)', fontSize: 18, marginTop: 4, boxShadow: '0 12px 26px rgba(227,27,35,0.28)' }}>
-                Request a Consultation <ArrowRight size={19} className="arrow" />
+              {error && (
+                <p role="alert" style={{ gridColumn: '1 / -1', margin: 0, fontFamily: 'Inter', fontSize: 14, color: RED, background: '#FCE7E8', borderRadius: 8, padding: '10px 14px' }}>{error}</p>
+              )}
+              <button type="submit" disabled={sending} className="btn-primary" style={{ gridColumn: '1 / -1', justifyContent: 'center', borderRadius: 8, padding: 'clamp(14px, 2vh, 18px)', fontSize: 18, marginTop: 4, boxShadow: '0 12px 26px rgba(227,27,35,0.28)', opacity: sending ? 0.7 : 1, cursor: sending ? 'wait' : 'pointer' }}>
+                {sending ? 'Sending…' : <>Request a Consultation <ArrowRight size={19} className="arrow" /></>}
               </button>
             </form>
           )}

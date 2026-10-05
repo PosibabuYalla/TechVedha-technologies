@@ -7,10 +7,8 @@ const sections = [
   { num: '06', label: 'Programs', href: '#programs' },
   { num: '07', label: 'Process', href: '#how' },
   { num: '08', label: 'Industries', href: '#industries' },
-  { num: '09', label: 'Cases', href: '#cases' },
-  { num: '10', label: 'Clients', href: '#clients' },
-  { num: '11', label: 'Resources', href: '#resources' },
-  { num: '12', label: 'CTA', href: '#cta' },
+  { num: '09', label: 'Testimonials', href: '#testimonials' },
+  { num: '10', label: 'CTA', href: '#cta' },
 ];
 
 interface SectionNavProps { active: string; }

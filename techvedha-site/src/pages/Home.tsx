@@ -9,13 +9,11 @@ import ConsultingServices from '../components/ConsultingServices';
 import FeaturedPrograms from '../components/FeaturedPrograms';
 import HowWeWork from '../components/HowWeWork';
 import Industries from '../components/Industries';
-import CaseStudies from '../components/CaseStudies';
-import ClientPerspectives from '../components/ClientPerspectives';
-import LatestResources from '../components/LatestResources';
+import Testimonials from '../components/Testimonials';
 import FinalCTA from '../components/FinalCTA';
 import Footer from '../components/Footer';
 
-const sectionIds = ['#hero', '#what', '#training', '#why', '#consulting', '#programs', '#how', '#industries', '#cases', '#clients', '#resources', '#cta'];
+const sectionIds = ['#hero', '#what', '#training', '#why', '#consulting', '#programs', '#how', '#industries', '#testimonials', '#cta'];
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('#hero');
@@ -48,6 +46,34 @@ export default function Home() {
     return () => observers.forEach(o => o.disconnect());
   }, []);
 
+  // Desktop: scale a section's content down if it doesn't fit inside its 100vh box
+  useEffect(() => {
+    const fit = () => {
+      document.querySelectorAll<HTMLElement>('main > section').forEach(section => {
+        const content = [...section.children].filter(
+          (c): c is HTMLElement => c instanceof HTMLElement && c.tagName !== 'STYLE' && getComputedStyle(c).position !== 'absolute'
+        );
+        content.forEach(c => { c.style.zoom = ''; });
+        if (window.innerWidth <= 1280) return;
+        const cs = getComputedStyle(section);
+        const available = section.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+        const needed = content.reduce((sum, c) => sum + c.offsetHeight, 0);
+        if (needed > available) {
+          const scale = String(Math.floor(((available - 2) / needed) * 1000) / 1000);
+          content.forEach(c => { c.style.zoom = scale; });
+        }
+      });
+    };
+    fit();
+    document.fonts?.ready.then(fit);
+    window.addEventListener('resize', fit);
+    window.addEventListener('load', fit);
+    return () => {
+      window.removeEventListener('resize', fit);
+      window.removeEventListener('load', fit);
+    };
+  }, []);
+
   const scrollToContact = () => {
     const el = document.querySelector('#contact');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -69,10 +95,8 @@ export default function Home() {
         <ConsultingServices />
         <FeaturedPrograms />
         <HowWeWork />
+        <Testimonials />
         <Industries />
-        <CaseStudies />
-        <ClientPerspectives />
-        <LatestResources />
         <FinalCTA />
       </main>
 

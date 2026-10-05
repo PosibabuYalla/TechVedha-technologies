@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@500;600&display=swap');
 
 @import "tailwindcss";
 
@@ -133,4 +133,20 @@ h1, h2, h3, h4 {
   background: var(--red);
   z-index: 9999;
   transition: width 0.1s linear;
+}
+
+/* Desktop (side-by-side layouts): every section fills exactly one viewport, content centered.
+   Below 1281px sections stack into one column, so they grow with their content instead. */
+@media (min-width: 1281px) {
+  main > section {
+    height: 100vh !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: stretch !important;
+    /* top padding clears the fixed 72px navbar */
+    padding-top: calc(72px + clamp(12px, 3vh, 40px)) !important;
+    padding-bottom: clamp(12px, 3vh, 40px) !important;
+  }
 }

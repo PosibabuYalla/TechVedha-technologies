@@ -39,15 +39,7 @@ export default function Footer() {
 
           {/* Col 1 */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
-              <div style={{ width: 36, height: 36, background: '#E31B23', clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ color: 'white', fontWeight: 800, fontSize: 14, fontFamily: 'Inter' }}>TV</span>
-              </div>
-              <div>
-                <div style={{ fontFamily: 'Inter', fontWeight: 700, fontSize: 15, color: '#15171A' }}>Tech Vedha</div>
-                <div style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: 10, color: '#666', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Technologies</div>
-              </div>
-            </div>
+            <img src="/logo.png" alt="Tech Vedha Technologies" style={{ height: 76, width: 'auto', display: 'block', marginBottom: 16, marginLeft: -6 }} />
             <p style={{ fontFamily: 'Inter', fontSize: 14, color: '#666', lineHeight: 1.8, maxWidth: 280 }}>
               Technology Consulting.<br />Corporate Training.<br />Business Transformation.
             </p>
@@ -75,7 +67,7 @@ export default function Footer() {
           {/* Col 3 */}
           <div>
             <h4 style={{ fontFamily: 'Inter', fontSize: 11, fontWeight: 700, color: '#15171A', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 20 }}>Resources</h4>
-            {[['Industries', '#industries'], ['Resources', '#resources'], ['Contact', '#contact'], ['Privacy Policy', '#'], ['Terms & Conditions', '#']].map(([label, href]) => (
+            {[['Industries', '#industries'], ['Testimonials', '#testimonials'], ['Contact', '#contact'], ['Privacy Policy', '#'], ['Terms & Conditions', '#']].map(([label, href]) => (
               <button key={label} onClick={() => scrollTo(href)}
                 style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'Inter', fontSize: 14, color: '#666', padding: '5px 0', transition: 'color 0.2s' }}
                 onMouseEnter={e => (e.currentTarget.style.color = '#E31B23')}

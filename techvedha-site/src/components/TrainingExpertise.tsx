@@ -1,110 +1,161 @@
 import { motion } from 'framer-motion';
-import SectionLabel from './SectionLabel';
-import CornerDeco from './CornerDeco';
+import { ArrowRight, GraduationCap, Users, ChartColumn } from 'lucide-react';
 import { trainingTopics } from '../data/services';
+
+const RED = '#E31B23';
+const NAVY = '#0F1B2D';
+
+const highlights = [
+  { Icon: GraduationCap, label: ['Industry', 'Focused'] },
+  { Icon: Users, label: ['Hands-on', 'Learning'] },
+  { Icon: ChartColumn, label: ['Career', 'Growth'] },
+];
+
+const scrollTo = (href: string) => {
+  const el = document.querySelector(href);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+};
 
 export default function TrainingExpertise() {
   return (
-    <section id="training" style={{ background: '#F5F6F7', minHeight: '100vh', padding: '100px 0', position: 'relative', overflow: 'hidden' }}>
+    <section id="training" style={{ background: 'linear-gradient(135deg, #F7FAFD 0%, #EEF3F9 55%, #F4F7FB 100%)', minHeight: '100vh', padding: '100px 0', position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
 
-      {/* Subtle dot grid */}
-      <div style={{ position: 'absolute', inset: 0, opacity: 0.035, pointerEvents: 'none', backgroundImage: 'radial-gradient(#E31B23 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+      {/* Soft background curves */}
+      <svg aria-hidden="true" viewBox="0 0 1600 900" preserveAspectRatio="none" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
+        <defs>
+          <linearGradient id="teCurve" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stopColor={RED} stopOpacity="0.85" />
+            <stop offset="1" stopColor={RED} stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <path d="M0 0 H 900 C 760 220, 620 520, 420 900 H 0 Z" fill="rgba(255,255,255,0.65)" />
+        <path d="M1150 0 C 1250 120, 1420 160, 1600 140 V 0 Z" fill="rgba(227,27,35,0.05)" />
+        <path d="M0 620 C 40 740, 120 840, 260 900" fill="none" stroke="url(#teCurve)" strokeWidth="2" />
+      </svg>
 
-      {/* Red diagonal bar top-right */}
-      <div style={{ position: 'absolute', top: 0, right: 0, width: 6, height: '40%', background: '#E31B23', opacity: 0.7 }} />
-      <div style={{ position: 'absolute', top: 0, right: 0, width: '30%', height: 6, background: '#E31B23', opacity: 0.7 }} />
+      {/* Dot textures */}
+      <div style={{ position: 'absolute', left: 0, top: '22%', width: 80, height: 160, backgroundImage: 'radial-gradient(rgba(15,27,45,0.14) 1.5px, transparent 1.5px)', backgroundSize: '16px 16px', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', right: 0, top: 0, width: 220, height: 200, backgroundImage: 'radial-gradient(rgba(15,27,45,0.16) 1.3px, transparent 1.3px)', backgroundSize: '9px 9px', WebkitMaskImage: 'linear-gradient(225deg, #000 0%, transparent 75%)', maskImage: 'linear-gradient(225deg, #000 0%, transparent 75%)', pointerEvents: 'none' }} />
 
-      <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 80px', display: 'flex', gap: 80, alignItems: 'flex-start' }} className="training-inner">
+      {/* Trainer photo — bottom right, fading into the background */}
+      <motion.img
+        src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&q=80"
+        alt="Instructor leading a corporate training session"
+        initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1 }}
+        className="te-photo"
+        style={{ position: 'absolute', right: 0, bottom: 0, width: '40%', height: '46%', objectFit: 'cover', objectPosition: 'center 30%', WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, #000 30%), linear-gradient(180deg, transparent 0%, #000 25%)', WebkitMaskComposite: 'source-in', maskImage: 'linear-gradient(90deg, transparent 0%, #000 30%), linear-gradient(180deg, transparent 0%, #000 25%)', maskComposite: 'intersect', pointerEvents: 'none' }}
+        loading="lazy"
+      />
+
+      <div style={{ maxWidth: 1480, width: '100%', margin: '0 auto', padding: '0 48px', display: 'grid', gridTemplateColumns: '370px 1fr', gap: 40, alignItems: 'center', position: 'relative' }} className="te-inner">
 
         {/* Left */}
         <motion.div
           initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          style={{ flex: '0 0 300px' }}
-          className="training-left"
         >
-          <SectionLabel number="03" label="Training Expertise" />
-          <h2 style={{ fontFamily: 'DM Serif Display, serif', fontSize: 'clamp(36px, 3.5vw, 52px)', color: '#15171A', lineHeight: 1.1, fontWeight: 400, margin: '0 0 8px' }}>
-            Our Core<br /><span style={{ color: '#E31B23' }}>Training Expertise</span>
-          </h2>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '16px 0 24px' }}>
-            <div style={{ width: 40, height: 3, background: '#E31B23' }} />
-            <div style={{ width: 6, height: 6, background: '#E31B23', transform: 'rotate(45deg)' }} />
+          <div style={{ position: 'relative', paddingTop: 12 }}>
+            <span style={{ position: 'absolute', top: 0, left: 0, width: 44, height: 2, background: RED }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+              <span style={{ width: 2, height: 16, background: RED }} />
+              <span style={{ fontFamily: 'Inter', fontSize: 14, fontWeight: 500, letterSpacing: '0.12em', textTransform: 'uppercase', color: NAVY }}>
+                Our Core Training Expertise
+              </span>
+            </div>
           </div>
-          <p style={{ fontFamily: 'Inter', fontSize: 15, lineHeight: 1.75, color: '#666', marginBottom: 32 }}>
-            In-demand technologies and skills for today's business needs.
+
+          <h2 style={{ fontFamily: 'DM Serif Display, serif', fontSize: 'clamp(42px, min(4.6vw, 8.5vh), 76px)', color: NAVY, lineHeight: 1.02, fontWeight: 400, margin: '18px 0 0' }}>
+            Our Core<br />
+            <span style={{ color: RED }}>Training</span><br />
+            Expertise
+          </h2>
+
+          <p style={{ fontFamily: 'Inter', fontSize: 'clamp(16px, 1.3vw, 20px)', lineHeight: 1.45, color: '#2A3442', margin: '22px 0 0', maxWidth: 330 }}>
+            In-demand technologies and skills for today&apos;s business needs.
           </p>
-          <button
-            onClick={() => { const el = document.querySelector('#programs'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }}
-            className="btn-primary"
-          >
-            Explore All Programs <span className="arrow">→</span>
+
+          <button onClick={() => scrollTo('#programs')} className="btn-primary" style={{ marginTop: 28, borderRadius: 6, padding: '16px 32px', fontSize: 17, boxShadow: '0 10px 24px rgba(227,27,35,0.25)' }}>
+            Explore All Programs <ArrowRight size={18} className="arrow" />
           </button>
 
-          {/* Editorial visual */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ delay: 0.45, duration: 0.6 }}
-            style={{ marginTop: 48, position: 'relative', overflow: 'hidden' }}
-          >
-            <img
-              src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80"
-              alt="Technology skills"
-              style={{ width: '100%', height: 200, objectFit: 'cover' }}
-              loading="lazy"
-            />
-            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(5,6,7,0.88) 0%, transparent 55%)' }} />
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '20px' }}>
-              <div style={{ width: 24, height: 3, background: '#E31B23', marginBottom: 8 }} />
-              <p style={{ fontFamily: 'DM Serif Display, serif', fontSize: 20, color: 'white', lineHeight: 1.3, fontWeight: 400 }}>
-                From Skills<br />to Real-World<br /><span style={{ color: '#E31B23' }}>Impact.</span>
-              </p>
-            </div>
-            <CornerDeco position="tr" size={28} color="#E31B23" opacity={0.9} />
-            <CornerDeco position="bl" size={20} color="white" opacity={0.3} />
-          </motion.div>
-        </motion.div>
-
-        {/* Grid */}
-        <div style={{ flex: 1 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }} className="training-grid">
-            {trainingTopics.map((topic, i) => (
-              <motion.div
-                key={topic.title}
-                initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }} transition={{ duration: 0.45, delay: i * 0.045, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -4, boxShadow: '0 10px 28px rgba(0,0,0,0.1)', borderColor: topic.color }}
-                style={{
-                  background: 'white', border: '1px solid #E9ECEF',
-                  padding: '18px 16px',
-                  display: 'flex', alignItems: 'center', gap: 12,
-                  cursor: 'pointer', transition: 'all 0.25s',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-                  position: 'relative', overflow: 'hidden',
-                }}
-              >
-                {/* Colored left accent bar */}
-                <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 3, background: topic.color, opacity: 0.7 }} />
-                <div style={{ width: 36, height: 36, borderRadius: 4, background: `${topic.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <topic.Icon size={18} color={topic.color} />
-                </div>
-                <span style={{ fontFamily: 'Inter', fontSize: 13, fontWeight: 600, color: '#15171A', lineHeight: 1.3 }}>
-                  {topic.title}
+          <div className="te-highlights" style={{ display: 'flex', alignItems: 'center', marginTop: 34 }}>
+            {highlights.map(({ Icon, label }, i) => (
+              <div key={label[0]} style={{ display: 'flex', alignItems: 'center', gap: 9, padding: i === 0 ? '0 14px 0 0' : '0 14px', borderLeft: i === 0 ? 'none' : '1px solid #D5DCE5' }}>
+                <Icon size={28} color={RED} strokeWidth={1.7} style={{ flexShrink: 0 }} />
+                <span style={{ fontFamily: 'Inter', fontSize: 13.5, fontWeight: 500, lineHeight: 1.3, color: NAVY, whiteSpace: 'nowrap' }}>
+                  {label[0]}<br />{label[1]}
                 </span>
-              </motion.div>
+              </div>
             ))}
           </div>
+        </motion.div>
+
+        {/* Topic tiles */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, minmax(0, 1fr))', gap: 'clamp(10px, 1.6vh, 18px)' }} className="te-grid">
+          {trainingTopics.map((topic, i) => (
+            <motion.button
+              key={topic.title}
+              type="button"
+              onClick={() => scrollTo('#programs')}
+              initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }} transition={{ duration: 0.45, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
+              className="te-tile"
+            >
+              <span style={{ width: 'clamp(40px, 6vh, 54px)', height: 'clamp(40px, 6vh, 54px)', borderRadius: '50%', background: `${topic.color}12`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <topic.Icon size={28} color={topic.color} strokeWidth={2} />
+              </span>
+              <span style={{ fontFamily: 'Inter', fontSize: 15, fontWeight: 700, lineHeight: 1.22, color: NAVY, marginTop: 'clamp(10px, 1.6vh, 18px)' }}>
+                {topic.title}
+              </span>
+              <span style={{ fontFamily: 'Inter', fontSize: 13, lineHeight: 1.4, color: '#5B6675', marginTop: 8, paddingRight: 28 }}>{topic.desc}</span>
+              <span className="te-arrow">
+                <ArrowRight size={15} />
+              </span>
+            </motion.button>
+          ))}
         </div>
       </div>
 
       <style>{`
+        .te-tile {
+          display: flex; flex-direction: column; align-items: flex-start; text-align: left;
+          min-height: clamp(150px, 22vh, 200px);
+          background: rgba(255,255,255,0.94); border: 1px solid rgba(15,27,45,0.06); border-radius: 14px;
+          padding: clamp(14px, 2vh, 20px) 16px clamp(12px, 1.6vh, 16px);
+          box-shadow: 0 8px 24px rgba(15,27,45,0.06);
+          cursor: pointer; font: inherit; position: relative;
+          transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+        }
+        .te-tile:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(15,27,45,0.12); border-color: rgba(227,27,35,0.35); }
+        .te-arrow {
+          position: absolute; right: 12px; bottom: 12px; width: 30px; height: 30px; border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          background: #EEF2F7; color: ${NAVY};
+          transition: background 0.25s, color 0.25s;
+        }
+        .te-tile:hover .te-arrow { background: ${RED}; color: #fff; }
+
+        @media (max-width: 1280px) {
+          .te-grid { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; }
+          .te-inner { grid-template-columns: 340px 1fr !important; }
+        }
         @media (max-width: 1100px) {
-          .training-inner { flex-direction: column !important; padding: 0 40px !important; gap: 48px !important; }
-          .training-left { flex: none !important; }
+          .te-inner { grid-template-columns: minmax(0, 1fr) !important; padding: 0 32px !important; gap: 40px !important; }
+          .te-photo { display: none; }
+        }
+        @media (max-width: 900px) {
+          .te-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
         }
         @media (max-width: 768px) {
-          .training-inner { padding: 0 24px !important; }
-          .training-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .te-inner { padding: 0 20px !important; }
+        }
+        @media (max-width: 600px) {
+          .te-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+        }
+
+        @media (max-width: 480px) {
+          .te-highlights { flex-wrap: wrap; row-gap: 14px; }
+          .te-highlights > div { padding: 0 16px 0 0 !important; border-left: none !important; }
         }
       `}</style>
     </section>

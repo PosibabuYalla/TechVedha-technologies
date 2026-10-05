@@ -9,7 +9,7 @@ const navLinks = [
   { label: 'Corporate Training', href: '#training' },
   { label: 'Programs', href: '#programs' },
   { label: 'Industries', href: '#industries' },
-  { label: 'Resources', href: '#resources' },
+  { label: 'Testimonials', href: '#testimonials' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -45,17 +45,7 @@ export default function Navbar() {
       <div style={{ maxWidth: 1400, margin: '0 auto', padding: '0 32px', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         {/* Logo */}
         <button onClick={() => scrollTo('#hero')} style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
-          <div style={{
-            width: 36, height: 36, background: '#E31B23',
-            clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-          }}>
-            <span style={{ color: 'white', fontWeight: 800, fontSize: 14, fontFamily: 'Inter' }}>TV</span>
-          </div>
-          <div>
-            <div style={{ fontFamily: 'Inter', fontWeight: 700, fontSize: 15, color: '#15171A', lineHeight: 1.1 }}>Tech Vedha</div>
-            <div style={{ fontFamily: 'Inter', fontWeight: 400, fontSize: 10, color: '#666', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Technologies</div>
-          </div>
+          <img src="/logo.png" alt="Tech Vedha Technologies" style={{ height: 64, width: 'auto', display: 'block' }} />
         </button>
 
         {/* Desktop Nav */}

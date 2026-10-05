@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --red: #E31B23;
+  --deep-red: #B5121B;
+  --black: #050607;
+  --dark: #0B0D0F;
+  --white: #FFFFFF;
+  --off-white: #F5F6F7;
+  --light-gray: #E9ECEF;
+  --text-dark: #15171A;
+  --muted: #666666;
+  --accent-light-red: #FCE7E8;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-dark);
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'DM Serif Display', serif;
+}
+
+.section-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--red);
+  color: white;
+  padding: 14px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, transform 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: var(--deep-red);
+}
+
+.btn-primary:hover .arrow {
+  transform: translateX(4px);
+}
+
+.arrow {
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text-dark);
+  padding: 13px 27px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.02em;
+  border: 1.5px solid var(--text-dark);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background: var(--text-dark);
+  color: white;
+}
+
+.btn-outline-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: white;
+  padding: 13px 27px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.02em;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.btn-outline-white:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: white;
+}
+
+.red-text { color: var(--red); }
+
+.diagonal-clip {
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+
+.diagonal-clip-reverse {
+  clip-path: polygon(0 0, 100% 8%, 100% 100%, 0 100%);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: var(--red); }
+
+/* Progress bar */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--red);
+  z-index: 9999;
+  transition: width 0.1s linear;
+}

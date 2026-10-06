@@ -1,7 +1,5 @@
 import { Mail, MapPin } from 'lucide-react';
-import CornerDeco from './CornerDeco';
 
-// Inline SVG social icons since lucide-react v0.x may not have them
 const LinkedinIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
@@ -21,6 +19,7 @@ const InstagramIcon = () => (
     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
   </svg>
 );
+import CornerDeco from './CornerDeco';
 
 export default function Footer() {
   const scrollTo = (href: string) => {
@@ -100,18 +99,10 @@ export default function Footer() {
             </div>
             <h5 style={{ fontFamily: 'Inter', fontSize: 11, fontWeight: 700, color: '#15171A', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: 14 }}>Connect With Us</h5>
             <div style={{ display: 'flex', gap: 10 }}>
-              {[
-                { Icon: LinkedinIcon, label: 'LinkedIn' },
-                { Icon: YoutubeIcon,  label: 'YouTube' },
-                { Icon: InstagramIcon,label: 'Instagram' },
-              ].map(({ Icon, label }) => (
-                <a key={label} href="#" aria-label={label}
-                  style={{ width: 36, height: 36, border: '1px solid #E9ECEF', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666', transition: 'all 0.2s', textDecoration: 'none' }}
-                  onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = '#E31B23'; el.style.borderColor = '#E31B23'; el.style.color = 'white'; }}
-                  onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = 'transparent'; el.style.borderColor = '#E9ECEF'; el.style.color = '#666'; }}
-                >
+              {[LinkedinIcon, YoutubeIcon, InstagramIcon].map((Icon, i) => (
+                <span key={i} style={{ width: 36, height: 36, border: '1px solid #E9ECEF', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#666', cursor: 'default', pointerEvents: 'none' }}>
                   <Icon />
-                </a>
+                </span>
               ))}
             </div>
           </div>
